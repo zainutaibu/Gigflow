@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export const AuthContext = createContext();
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api','https://gigflow-4e1f.onrender.com',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   withCredentials: true
 });
 
