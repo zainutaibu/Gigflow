@@ -13,18 +13,16 @@ const bidRoutes = require('./routes/bids');
 const app = express();
 const server = http.createServer(app);
 
-// ✅ Allowed Origins (Multiple URLs)
+// ✅ Allowed Origins (Fixed - removed trailing slash)
 const allowedOrigins = [
   'http://localhost:5173',
-  'http://localhost:5174',
-  'https://gigflow-1.onrender.com',
+  'https://gigflow-1.onrender.com',  // ❌ YAHAN SE "/" REMOVE KIYA
   process.env.FRONTEND_URL
-].filter(Boolean); // Remove undefined values
+].filter(Boolean);
 
 // ✅ CORS Configuration
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or Postman)
     if (!origin) return callback(null, true);
     
     if (allowedOrigins.indexOf(origin) !== -1) {
@@ -56,9 +54,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Trust proxy (Important for deployment)
-if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1);
-}
+app.set('trust proxy', 1);
 
 // Socket.io connection
 const userSockets = new Map();
